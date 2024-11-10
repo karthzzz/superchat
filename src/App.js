@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 
 import firebase from 'firebase/compat/app';
@@ -114,9 +113,8 @@ function ChatMessage(props) {
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (
-    <div className={'message ${messageClass}'}>
-      <img src={photoURL} />
-      
+    <div className={`message ${messageClass}`}>
+      <img src={photoURL} alt="User Avatar" />
       <p>{text}</p>
     </div>
   );
