@@ -31,6 +31,7 @@ function App() {
     <div className="App">
       <header>
         <img src={logo} className="App-logo" alt="logo" />
+        <SignOut />
       </header>
 
       <section>
@@ -41,9 +42,13 @@ function App() {
 }
 
 function SignIn() {
-  const signInWithGoogle = () => {
+  const signInWithGoogle = async () => {
     const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider);
+    try {
+      await auth.signInWithPopup(provider);
+    } catch (error) {
+      console.error("Error signing in with Google: ", error);
+    }
   };
 
   return (
@@ -67,14 +72,23 @@ function ChatRoom() {
   const sendMessage = async (e) => {
     e.preventDefault();
     const { uid, photoURL } = auth.currentUser;
-    await messagesRef.add({
-      text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      uid,
-      photoURL
-    });
-    setFormValue('');
-    dummy.current.scrollIntoView({ behavior: 'smooth' });
+
+    if (formValue.trim() === '') {
+      return;
+    }
+
+    try {
+      await messagesRef.add({
+        text: formValue,
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        uid,
+        photoURL
+      });
+      setFormValue('');
+      dummy.current.scrollIntoView({ behavior: 'smooth' });
+    } catch (error) {
+      console.error("Error sending message: ", error);
+    }
   };
 
   return (
@@ -86,7 +100,7 @@ function ChatRoom() {
         <div ref={dummy}></div>
       </main>
       <form onSubmit={sendMessage}>
-        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
+        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} placeholder="Type your message..." />
         <button type="submit">Send</button>
       </form>
     </>
