@@ -1,3 +1,4 @@
+import logo from './logo.svg';
 import './App.css';
 
 import firebase from 'firebase/compat/app';
@@ -11,13 +12,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 firebase.initializeApp({
-    apiKey: "AIzaSyCi2WsVn3O0qrH7GtdTXFPBjzi6JQ3gjPQ",
-    authDomain: "superchat-7ae2d.firebaseapp.com",
-    projectId: "superchat-7ae2d",
-    storageBucket: "superchat-7ae2d.firebasestorage.app",
-    messagingSenderId: "631036000317",
-    appId: "1:631036000317:web:4bfcf6bc20ea6fd7041254",
-    measurementId: "G-1327ZTEJDT"
+  apiKey: "AIzaSyCi2WsVn3O0qrH7GtdTXFPBjzi6JQ3gjPQ",
+  authDomain: "superchat-7ae2d.firebaseapp.com",
+  projectId: "superchat-7ae2d",
+  storageBucket: "superchat-7ae2d.firebasestorage.app",
+  messagingSenderId: "631036000317",
+  appId: "1:631036000317:web:4bfcf6bc20ea6fd7041254",
+  measurementId: "G-1327ZTEJDT"
 });
 
 const auth = firebase.auth();
@@ -29,12 +30,11 @@ function App() {
   return (
     <div className="App">
       <header>
-        
+        <img src={logo} className="App-logo" alt="logo" />
       </header>
 
       <section>
-      {user ? <ChatRoom /> : <SignIn />}
-
+        {user ? <ChatRoom /> : <SignIn />}
       </section>
     </div>
   );
@@ -58,58 +58,43 @@ function SignOut() {
 }
 
 function ChatRoom() {
-
   const dummy = useRef();
-
   const messagesRef = firestore.collection('messages');
   const query = messagesRef.orderBy('createdAt').limit(25);
-
   const [messages] = useCollectionData(query, { idField: 'id' });
-
   const [formValue, setFormValue] = useState('');
 
-  const sendMessage = async(e) => {
+  const sendMessage = async (e) => {
     e.preventDefault();
-
     const { uid, photoURL } = auth.currentUser;
-
     await messagesRef.add({
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL
     });
-
     setFormValue('');
-
     dummy.current.scrollIntoView({ behavior: 'smooth' });
-  }
+  };
 
   return (
     <>
       <main>
-      <div>
-        {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
-      </div>
-        
+        <div>
+          {messages && messages.map(msg => <ChatMessage key={msg.id} message={msg} />)}
+        </div>
         <div ref={dummy}></div>
-
       </main>
-
-      <form onSubmit={sendMessage} >
-        <input value ={formValue} onChange={(e) => setFormValue(e.target.value)} />
+      <form onSubmit={sendMessage}>
+        <input value={formValue} onChange={(e) => setFormValue(e.target.value)} />
         <button type="submit">Send</button>
       </form>
-
-
-
     </>
   );
 }
 
 function ChatMessage(props) {
   const { text, uid, photoURL } = props.message;
-
   const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
   return (
