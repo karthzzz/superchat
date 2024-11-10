@@ -1,3 +1,8 @@
+# SuperChat
+
+SuperChat is a simple chat application that allows users to send messages to each other in real-time. The application is built using React and Firebase. The application is hosted on Firebase and can be accessed [here](https://superchat-7ae2d.web.app/).
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
