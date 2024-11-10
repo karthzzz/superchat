@@ -1,75 +1,91 @@
 # SuperChat
 
-SuperChat is a simple chat application that allows users to send messages to each other in real-time. The application is built using React and Firebase. The application is hosted on Firebase and can be accessed [here](https://superchat-7ae2d.web.app/).
+SuperChat is a simple chat application that allows users to send messages to each other in real-time. The application is built using React and Firebase.
 
+The application is hosted on Firebase and can be accessed [here](https://superchat-7ae2d.web.app/).
 
-# Getting Started with Create React App
+## Features
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Real-time messaging
+- Google authentication
+- Profanity filtering
+- Responsive design
 
-## Available Scripts
+## ToDo
+
+- Implement LLMs to text each other instead of humans just sending messages.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js
+- npm
+
+### Installation
+
+1. Clone the repository:
+	```bash
+	git clone https://github.com/yourusername/superchat.git
+	cd superchat
+	```
+
+2. Install dependencies:
+	```bash
+	npm install
+	```
+
+### Available Scripts
 
 In the project directory, you can run:
 
-### `npm start`
+- `npm start`: Runs the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- `npm test`: Launches the test runner in the interactive watch mode.
+- `npm run build`: Builds the app for production to the `build` folder.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Firebase Functions
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The project includes a Firebase function to detect and filter profanity in messages. The function is defined in `functions/index.js`.
 
-### `npm test`
+### Deploying Firebase Functions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Install Firebase CLI:
+	```bash
+	npm install -g firebase-tools
+	```
 
-### `npm run build`
+2. Login to Firebase:
+	```bash
+	firebase login
+	```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Deploy functions:
+	```bash
+	firebase deploy --only functions
+	```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### GitHub Actions
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The project uses GitHub Actions for continuous deployment. The workflows are defined in the `.github/workflows` directory.
 
-### `npm run eject`
+- `firebase-hosting-pull-request.yml`: Deploys to Firebase Hosting on pull requests.
+- `firebase-hosting-merge.yml`: Deploys to Firebase Hosting on merge to the master branch.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Project Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Key Files
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- `src/App.js`: Main application component.
+- `src/App.css`: Styling for the application.
+- `src/index.js`: Entry point for the React application.
+- `functions/index.js`: Firebase functions for backend logic.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Learn More
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+To learn Firebase, check out the [Firebase documentation](https://firebase.google.com/docs).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### License
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.
